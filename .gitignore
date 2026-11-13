@@ -1,0 +1,24 @@
+.DS_Store
+node_modules/
+dist/
+out/
+*.vsix
+.env
+.env.*
+.ssh/
+
+
+.wrangler/
+*.tsbuildinfo
+chat-exports/
+Макс_Alpen-Gold/
+
+# Local builds and device credentials
+**/__pycache__/
+*.pyc
+**/.tmp-kimi-home/
+**/identity.json
+**/pairing.json
+*.pem
+*.p12
+*.mobileprovision

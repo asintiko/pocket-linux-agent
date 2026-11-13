@@ -1,0 +1,218 @@
+/** Bot texts. Telegram tells us each user's language; Russian speakers get Russian, everyone else English. */
+export interface Strings {
+  buttons: { read: string; text: string; photo: string; screenshot: string; newChat: string; stop: string; chats: string; pc: string; status: string };
+  /** Inline buttons under a finished reply. */
+  codeToPc: string;
+  replyToPc: string;
+  sentToPc: (pc: string) => string;
+  noCode: string;
+  screenshotOf: (pc: string) => string;
+  screenshotFailed: (reason: string) => string;
+  noScreenshot: (pc: string) => string;
+  commands: { new: string; chats: string; stop: string; status: string; pc: string; app: string; camera: string; unlink: string; help: string };
+  /** Live camera: the link is a page that shows frames for a few minutes. */
+  cameraOpening: (pc: string) => string;
+  cameraLink: (pc: string, minutes: number) => string;
+  cameraButton: string;
+  cameraNote: string;
+  noCamera: (pc: string) => string;
+  cameraFailed: (reason: string) => string;
+  notLinked: string;
+  badCode: string;
+  linking: string;
+  linked: (name: string, pc: string | undefined) => string;
+  linkFailed: (reason: string) => string;
+  unlinked: string;
+  noComputer: string;
+  macOffline: string;
+  pcOffline: (pc: string) => string;
+  empty: (pc: string) => string;
+  reading: (pc: string) => string;
+  copied: (pc: string) => string;
+  sendText: string;
+  sendPhoto: string;
+  onlyImages: string;
+  pickPc: string;
+  pcSet: (pc: string) => string;
+  failed: (reason: string) => string;
+  notCopied: string;
+  noChat: string;
+  newChat: (title: string) => string;
+  nowIn: (title: string) => string;
+  chats: string;
+  noChats: string;
+  newChatButton: string;
+  stopped: string;
+  nothingRunning: string;
+  waiting: string;
+  emptyReply: string;
+  macWentOffline: string;
+  permission: (tool: string) => string;
+  allow: string;
+  allowSession: string;
+  deny: string;
+  allowed: string;
+  allowedSession: string;
+  denied: string;
+  resolvedElsewhere: string;
+  /** Mini App: the menu button's label and the `/app` reply with its one-tap pairing button. */
+  menuButton: string;
+  noApp: string;
+  openApp: string;
+  openAppButton: string;
+  status: (s: { user: string; owner: boolean; macOnline: boolean; claude: string | undefined; computers: { name: string; online: boolean; current: boolean; clipboard: boolean }[] }) => string;
+  help: string;
+}
+
+const en: Strings = {
+  buttons: { read: '📋 Clipboard → here', text: '📥 Text → clipboard', photo: '🖼 Photo → clipboard', screenshot: '📸 Screenshot', newChat: '💬 New chat', stop: '⏹ Stop', chats: '💬 Chats', pc: '🖥 Computer', status: 'ℹ️ Status' },
+  codeToPc: '⌨️ Code → PC',
+  replyToPc: '📄 Reply → PC',
+  sentToPc: (pc) => `On the clipboard of ${pc}. Paste with Ctrl+V.`,
+  noCode: 'No code in this reply.',
+  screenshotOf: (pc) => `Screen of ${pc}`,
+  screenshotFailed: (reason) => `No screenshot: ${reason}`,
+  noScreenshot: (pc) => `${pc} runs an old PocketClipboard without screenshots. Install the current PocketClipboard.exe there.`,
+  commands: { new: 'New chat with Claude', chats: 'Pick a chat', stop: 'Stop the current reply', status: 'Mac and computers', pc: 'Pick the clipboard computer', app: 'Open Pocket inside Telegram', camera: 'Look through the computer camera', unlink: 'Unlink this Telegram account', help: 'What the buttons do' },
+  cameraOpening: (pc) => `Opening the camera on ${pc}…`,
+  cameraLink: (pc, minutes) => `Camera on ${pc}, live for ${minutes} min.`,
+  cameraButton: '📷 Watch',
+  cameraNote: 'Frames are taken one at a time, about one a second, and the camera is released between them. The laptop\'s camera light follows the sensor\'s power, so it lights up while frames are taken — it is the camera being on, not a recording.',
+  noCamera: (pc) => `${pc} has no camera shared. Run PocketClipboard.exe camera on there.`,
+  cameraFailed: (reason) => `Camera did not start: ${reason}`,
+  notLinked: 'This bot is not linked to your Pocket yet.\nOn the phone open Settings → Telegram → Link, then tap the link it opens.',
+  badCode: 'That link has expired or is not a Pocket link. Make a new one on the phone: Settings → Telegram → Link.',
+  linking: 'Linking with the Mac…',
+  linked: (name, pc) => `Linked as ${name}.\n${pc ? `Clipboard computer: ${pc}.` : 'No computer shares its clipboard yet: run PocketClipboard on it and add it from the phone.'}`,
+  linkFailed: (reason) => `Could not link: ${reason}`,
+  unlinked: 'Unlinked. The Mac has forgotten this Telegram account.',
+  noComputer: 'No computer shares its clipboard. Run PocketClipboard on it and add it from the phone (chat → phone icon → Add a computer).',
+  macOffline: 'The Mac is offline.',
+  pcOffline: (pc) => `${pc} is offline.`,
+  empty: (pc) => `The clipboard on ${pc} is empty.`,
+  reading: (pc) => `Reading the clipboard on ${pc}…`,
+  copied: (pc) => `Copied to ${pc}.`,
+  sendText: 'Send me the text and it goes to the PC clipboard (the next message only).',
+  sendPhoto: 'Send me a photo or an image file and it goes to the PC clipboard (the next one only).',
+  onlyImages: 'Only text and pictures can go to the clipboard for now.',
+  pickPc: 'Which computer?',
+  pcSet: (pc) => `Using ${pc}.`,
+  failed: (reason) => `Did not work: ${reason}`,
+  notCopied: 'Not copied: the computer did not answer.',
+  noChat: 'No chat yet. Tap “💬 New chat” (or /new) to talk to Claude; to copy text to the PC tap “📥 Text → clipboard” first.',
+  newChat: (title) => `New chat: ${title}. Write to Claude here.`,
+  nowIn: (title) => `Chat: ${title}`,
+  chats: 'Your chats',
+  noChats: 'No chats yet.',
+  newChatButton: '➕ New chat',
+  stopped: 'Stopped.',
+  nothingRunning: 'Nothing is running.',
+  waiting: '…',
+  emptyReply: '(no reply)',
+  macWentOffline: 'The Mac went offline.',
+  permission: (tool) => `🔐 Claude wants to run ${tool}:`,
+  allow: '✅ Allow',
+  allowSession: '✅ Always in this chat',
+  deny: '❌ Deny',
+  allowed: '✅ Allowed',
+  allowedSession: '✅ Allowed for this chat',
+  denied: '❌ Denied',
+  resolvedElsewhere: 'Answered on another device.',
+  menuButton: 'Pocket',
+  noApp: 'The Mini App is not set up on the Mac yet: pocket-claude telegram app <https url>.',
+  openApp: 'The button opens Pocket inside Telegram and pairs it as another device of yours. It works once, within 5 minutes; send /app again for a new one.',
+  openAppButton: '📱 Open Pocket',
+  status: (s) =>
+    [
+      `You: ${s.user}${s.owner ? ' (owner)' : ''}`,
+      `Mac: ${s.macOnline ? 'online' : 'offline'}${s.claude ? `, Claude Code ${s.claude}` : ''}`,
+      s.computers.length ? 'Computers:' : 'Computers: none',
+      ...s.computers.map((c) => `  ${c.online ? '●' : '○'} ${c.name}${c.current ? ' ✓' : ''}${c.clipboard ? '' : ' (no clipboard)'}`),
+    ].join('\n'),
+  help: 'Buttons below: get what is on the PC clipboard, put text and photos there, or take a screenshot of the PC. “💬 New chat” starts a chat with Claude; then plain messages and photos go to it, and every reply has “Code → PC” / “Reply → PC”. /chats picks an older chat; /status, /pc, /app (Pocket inside Telegram), /unlink.',
+};
+
+const ru: Strings = {
+  buttons: { read: '📋 Буфер → сюда', text: '📥 Текст → в буфер', photo: '🖼 Фото → в буфер', screenshot: '📸 Скриншот', newChat: '💬 Новый чат', stop: '⏹ Стоп', chats: '💬 Чаты', pc: '🖥 Компьютер', status: 'ℹ️ Статус' },
+  codeToPc: '⌨️ Код → ПК',
+  replyToPc: '📄 Ответ → ПК',
+  sentToPc: (pc) => `В буфере ${pc}. Вставь через Ctrl+V.`,
+  noCode: 'В этом ответе нет кода.',
+  screenshotOf: (pc) => `Экран ${pc}`,
+  screenshotFailed: (reason) => `Скриншот не получился: ${reason}`,
+  noScreenshot: (pc) => `На ${pc} старый PocketClipboard без скриншотов. Поставь туда свежий PocketClipboard.exe.`,
+  commands: { new: 'Новый чат с Claude', chats: 'Выбрать чат', stop: 'Остановить текущий ответ', status: 'Mac и компьютеры', pc: 'Выбрать компьютер для буфера', app: 'Открыть Pocket внутри Telegram', camera: 'Посмотреть камерой компьютера', unlink: 'Отвязать этот Telegram', help: 'Что делают кнопки' },
+  cameraOpening: (pc) => `Открываю камеру на ${pc}…`,
+  cameraLink: (pc, minutes) => `Камера на ${pc}, вживую на ${minutes} мин.`,
+  cameraButton: '📷 Смотреть',
+  cameraNote: 'Кадры берутся по одному, примерно раз в секунду, между ними камера отпускается. Индикатор камеры на ноутбуке привязан к питанию сенсора, поэтому он загорается на время кадров — это работа камеры, а не запись.',
+  noCamera: (pc) => `На ${pc} камера не разрешена. Запусти там PocketClipboard.exe camera on.`,
+  cameraFailed: (reason) => `Камера не открылась: ${reason}`,
+  notLinked: 'Бот ещё не привязан к твоему Pocket.\nНа телефоне: Настройки → Telegram → Link, затем нажми на открывшуюся ссылку.',
+  badCode: 'Ссылка устарела или это не ссылка Pocket. Сделай новую на телефоне: Настройки → Telegram → Link.',
+  linking: 'Привязываю к Mac…',
+  linked: (name, pc) => `Привязано: ${name}.\n${pc ? `Буфер обмена: ${pc}.` : 'Пока ни один компьютер не делится буфером: запусти на нём PocketClipboard и добавь его с телефона.'}`,
+  linkFailed: (reason) => `Не удалось привязать: ${reason}`,
+  unlinked: 'Отвязано. Mac забыл этот Telegram-аккаунт.',
+  noComputer: 'Ни один компьютер не делится буфером. Запусти на нём PocketClipboard и добавь его с телефона (чат → значок телефона → Add a computer).',
+  macOffline: 'Mac не в сети.',
+  pcOffline: (pc) => `${pc} не в сети.`,
+  empty: (pc) => `Буфер обмена на ${pc} пуст.`,
+  reading: (pc) => `Читаю буфер на ${pc}…`,
+  copied: (pc) => `Скопировано на ${pc}.`,
+  sendText: 'Пришли текст — он попадёт в буфер обмена ПК (только следующее сообщение).',
+  sendPhoto: 'Пришли фото или файл с картинкой — оно попадёт в буфер обмена ПК (только следующее).',
+  onlyImages: 'В буфер пока можно положить только текст и картинки.',
+  pickPc: 'Какой компьютер?',
+  pcSet: (pc) => `Теперь ${pc}.`,
+  failed: (reason) => `Не получилось: ${reason}`,
+  notCopied: 'Не скопировано: компьютер не ответил.',
+  noChat: 'Чата ещё нет. Нажми «💬 Новый чат» (или /new), чтобы говорить с Claude; чтобы положить текст в буфер ПК, сначала нажми «📥 Текст → в буфер».',
+  newChat: (title) => `Новый чат: ${title}. Пиши Claude сюда.`,
+  nowIn: (title) => `Чат: ${title}`,
+  chats: 'Твои чаты',
+  noChats: 'Чатов пока нет.',
+  newChatButton: '➕ Новый чат',
+  stopped: 'Остановлено.',
+  nothingRunning: 'Ничего не выполняется.',
+  waiting: '…',
+  emptyReply: '(без ответа)',
+  macWentOffline: 'Mac ушёл в офлайн.',
+  permission: (tool) => `🔐 Claude хочет выполнить ${tool}:`,
+  allow: '✅ Разрешить',
+  allowSession: '✅ Всегда в этом чате',
+  deny: '❌ Запретить',
+  allowed: '✅ Разрешено',
+  allowedSession: '✅ Разрешено для этого чата',
+  denied: '❌ Запрещено',
+  resolvedElsewhere: 'Решено на другом устройстве.',
+  menuButton: 'Pocket',
+  noApp: 'Mini App ещё не настроено на Mac: pocket-claude telegram app <https url>.',
+  openApp: 'Кнопка открывает Pocket внутри Telegram и привязывает его как ещё одно твоё устройство. Работает один раз, в течение 5 минут; за новой — снова /app.',
+  openAppButton: '📱 Открыть Pocket',
+  status: (s) =>
+    [
+      `Ты: ${s.user}${s.owner ? ' (владелец)' : ''}`,
+      `Mac: ${s.macOnline ? 'в сети' : 'не в сети'}${s.claude ? `, Claude Code ${s.claude}` : ''}`,
+      s.computers.length ? 'Компьютеры:' : 'Компьютеры: нет',
+      ...s.computers.map((c) => `  ${c.online ? '●' : '○'} ${c.name}${c.current ? ' ✓' : ''}${c.clipboard ? '' : ' (без буфера)'}`),
+    ].join('\n'),
+  help: 'Кнопки внизу: забрать то, что в буфере на ПК, положить туда текст и фото, снять скриншот ПК. «💬 Новый чат» начинает чат с Claude — дальше обычные сообщения и фото идут ему, а под каждым ответом есть «Код → ПК» / «Ответ → ПК». /chats выбирает старый чат; /status, /pc, /app (Pocket внутри Telegram), /unlink.',
+};
+
+export const STRINGS: Record<'en' | 'ru', Strings> = { en, ru };
+
+export function stringsFor(languageCode: string | undefined): Strings {
+  return languageCode?.toLowerCase().startsWith('ru') ? ru : en;
+}
+
+export type ButtonAction = keyof Strings['buttons'];
+
+/** Which button a message text is, in any language. */
+export function buttonFor(text: string): ButtonAction | undefined {
+  const t = text.trim();
+  for (const s of Object.values(STRINGS)) {
+    for (const [action, label] of Object.entries(s.buttons)) if (label === t) return action as ButtonAction;
+  }
+  return undefined;
+}
