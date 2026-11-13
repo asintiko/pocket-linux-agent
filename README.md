@@ -187,7 +187,15 @@ node apps/brain/bin/pocket-claude.mjs pair
 
 Отсканируйте QR или откройте ссылку из `pair` в Pocket на телефоне. После привязки телефона добавляйте Linux-компьютер по разделу 2.
 
-Этот репозиторий содержит и исходники мобильного приложения. Готовые APK/IPA сюда не приложены. Инструкции сборки: [apps/mobile/README.md](apps/mobile/README.md). Для iOS нужны Mac, Xcode и ваша подпись Apple; Expo Go не заменяет сборку приложения.
+Готовый Android APK: [скачать последнюю опубликованную сборку](https://github.com/asintiko/pocket-linux-agent/releases/download/android-2026-11-13/pocket-integration-release.apk). Версия 0.1.0, около 120 MiB, тестовая подпись Android Debug. SHA-256 и происхождение сборки указаны в [Release](https://github.com/asintiko/pocket-linux-agent/releases/tag/android-2026-11-13). Скачайте APK на Android и откройте его; при совместимой подписи можно установить поверх приложения. IPA не опубликован.
+
+Для установки APK с компьютера по USB при включённой отладке Android:
+
+```bash
+adb install -r pocket-integration-release.apk
+```
+
+Этот репозиторий также содержит исходники мобильного приложения из Linux snapshot. Опубликованный APK взят из более поздней интеграционной мобильной сборки; его исходный HEAD указан в Release. Инструкции самостоятельной сборки: [apps/mobile/README.md](apps/mobile/README.md). Для iOS нужны Mac, Xcode и ваша подпись Apple; Expo Go не заменяет сборку приложения.
 
 ## 7. Обновить Linux-агент
 
